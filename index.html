@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Báo cáo điểm danh lớp học online</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📋</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f5f8;--ink:#17232f;--mute:#5b6b7a;--line:#d5dde5;--pane:#fff;--acc:#2a48d6;--acc-ink:#fff;--ok:#1d7548;--warn:#a34a05;--warnbg:#fff4e3;--chip:#e6ecfb}
+@media(prefers-color-scheme:dark){:root{--bg:#111a23;--ink:#e6edf3;--mute:#9db0c1;--line:#2b3a48;--pane:#182430;--acc:#7f97ff;--acc-ink:#0b1220;--ok:#5fd394;--warn:#f2b26b;--warnbg:#33260f;--chip:#22335f}}
+*{box-sizing:border-box}
+html{scroll-padding-top:12px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:780px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:1.7rem;line-height:1.2;margin:0 0 6px}
+.sub{color:var(--mute);margin:0 0 20px}
+.priv{border-left:4px solid var(--ok);padding:8px 12px;background:var(--pane);margin:0 0 22px;font-size:.93rem}
+.step{background:var(--pane);border:1px solid var(--line);border-radius:10px;padding:18px;margin:0 0 16px}
+.step>h2{font-size:1.08rem;margin:0 0 4px;display:flex;gap:10px;align-items:center}
+.n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--acc-ink);font-size:.85rem;display:grid;place-items:center}
+.hint{color:var(--mute);font-size:.9rem;margin:0 0 12px}
+label{display:block;font-weight:500;margin:12px 0 4px}
+input[type=text],input[type=number],input[type=date],textarea,select{width:100%;font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:9px 11px}
+textarea{min-height:76px;resize:vertical}
+input[type=file]{width:100%;font:inherit;padding:8px;border:1px dashed var(--line);border-radius:8px;background:var(--bg)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--pane);color:var(--ink);padding:8px 14px}
+button.go{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:600;padding:12px 22px;font-size:1.02rem}
+button:disabled{opacity:.5;cursor:not-allowed}
+.status{margin:0 0 16px;padding:10px 12px;border-radius:8px;background:var(--pane);border:1px solid var(--line);font-size:.93rem}
+.status.err{background:var(--warnbg);border-color:var(--warn);color:var(--warn)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.chip{background:var(--chip);border-radius:99px;padding:3px 6px 3px 12px;font-size:.9rem;display:inline-flex;gap:6px;align-items:center}
+.chip button{border:0;background:none;padding:0 6px;font-size:1.1rem;line-height:1;color:inherit}
+.sugg{border:1px solid var(--line);border-radius:8px;margin-top:4px;max-height:210px;overflow:auto;background:var(--pane)}
+.sugg button{display:block;width:100%;text-align:left;border:0;border-radius:0;border-bottom:1px solid var(--line)}
+.sugg button:last-child{border:0}
+details{margin-top:14px}
+summary{cursor:pointer;font-weight:500}
+.warnbox{background:var(--warnbg);border:1px solid var(--warn);color:var(--ink);border-radius:8px;padding:12px 14px;margin:0 0 16px}
+.warnbox b{color:var(--warn)}
+.warnbox li{margin:4px 0;font-size:.92rem}
+.out{background:var(--pane);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:0 0 14px}
+.out header{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.out h3{margin:0;font-size:1.02rem}
+.out .body{overflow-x:auto;font-size:.93rem}
+.out table{border-collapse:collapse;width:100%;margin:6px 0}
+.out th,.out td{border-bottom:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+.out th{font-weight:600;white-space:nowrap}
+.out p{margin:6px 0}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 14px}
+footer{color:var(--mute);font-size:.85rem;margin-top:30px}
+</style>
+</head>
+<body>
+<main>
+<h1>Báo cáo điểm danh lớp học online</h1>
+<p class="sub">Tải file Zoom lên, nhận báo cáo sĩ số, vắng có phép/không phép và bảng xếp hạng tin nhắn để gửi nhóm lớp.</p>
+<p class="priv"><b>Dữ liệu ở lại máy của bạn.</b> Danh sách học sinh và file Zoom chỉ được xử lý ngay trong trình duyệt, không gửi đi đâu và không nằm trong mã nguồn của trang.</p>
+<div id="status" class="status">Đang chuẩn bị bộ xử lý… lần đầu có thể mất 10–30 giây.</div>
+
+<section class="step">
+<h2><span class="n">1</span>Danh sách lớp</h2>
+<p class="hint">File CSV có cột “Họ và tên”, “Tên đăng nhập” và “Ghi chú” (có thêm cột “STT” cũng được). Phải tải lên mỗi lần dùng.</p>
+<label for="cls">Tên lớp (hiện trên tiêu đề báo cáo)</label>
+<input type="text" id="cls" placeholder="Ví dụ: Lớp A1" autocomplete="off">
+<label for="roster">File danh sách lớp (.csv)</label>
+<input type="file" id="roster" accept=".csv,text/csv">
+<div id="rosterInfo" class="hint"></div>
+</section>
+
+<section class="step">
+<h2><span class="n">2</span>Dữ liệu buổi học</h2>
+<label for="chat">File chat Zoom (.txt) — chọn nhiều file nếu nhiều người cùng xuất chat của buổi đó</label>
+<input type="file" id="chat" accept=".txt" multiple>
+<label for="part">File người tham gia Zoom (.csv)</label>
+<input type="file" id="part" accept=".csv,text/csv">
+<div class="row">
+<div><label for="date">Ngày học (bỏ trống để tự đoán từ file chat)</label><input type="date" id="date"></div>
+<div><label for="code">Chỉ báo cáo một nhóm (mã trong cột “Ghi chú”)</label><input type="text" id="code" placeholder="Bỏ trống = cả lớp" autocomplete="off"></div>
+</div>
+<details><summary>Có file lời thoại (.vtt) từ bản ghi hình?</summary>
+<p class="hint">Dùng để tính cả lượt phát biểu bằng giọng nói. Không bắt buộc.</p>
+<input type="file" id="vtt" accept=".vtt" multiple></details>
+</section>
+
+<section class="step">
+<h2><span class="n">3</span>Học sinh xin nghỉ buổi này</h2>
+<p class="hint">Gõ tên để tìm trong danh sách lớp rồi bấm chọn. Hai bạn trùng tên được phân biệt bằng số đứng trước.</p>
+<input type="text" id="find" placeholder="Gõ tên học sinh…" autocomplete="off" disabled>
+<div id="sugg"></div>
+<div id="chips" class="chips"></div>
+<details><summary>Dán thêm tên (mỗi dòng một tên)</summary>
+<textarea id="paste" placeholder="Nguyễn Văn A&#10;12. Trần Thị B"></textarea></details>
+<details><summary>Xác nhận thủ công đã điểm danh (nếu biết chắc bạn đó có mặt)</summary>
+<textarea id="manual" placeholder="Mỗi dòng một tên"></textarea></details>
+</section>
+
+<section class="step">
+<h2><span class="n">4</span>Cài đặt lớp</h2>
+<p class="hint">Lưu ngay trong trình duyệt này theo từng tên lớp, không lên GitHub. Lần sau chỉ cần mở lại trang.</p>
+<label for="left">Đã nghỉ hẳn (mỗi dòng một tên — không tính vào sĩ số)</label><textarea id="left"></textarea>
+<label for="trial">Học thử (mỗi dòng một tên — không tính vào sĩ số)</label><textarea id="trial"></textarea>
+<label for="fixed">Vắng có phép cố định theo thứ (mỗi dòng: Tên: Thứ, ví dụ “Nguyễn Văn A: Chủ Nhật”)</label><textarea id="fixed"></textarea>
+<label for="teach">Giảng viên / trợ giảng (loại khỏi bảng xếp hạng; mỗi dòng một tên hiển thị Zoom)</label><textarea id="teach"></textarea>
+<div class="row">
+<div><label for="good">Tương tác tốt khi nhiều hơn … tin</label><input type="number" id="good" min="1" value="10"></div>
+<div><label for="poor">Tương tác kém khi ít hơn … tin</label><input type="number" id="poor" min="1" value="4"></div>
+</div>
+<p style="margin:14px 0 0"><button id="wipe" type="button">Xoá cài đặt đã lưu của lớp này</button></p>
+</section>
+
+<p><button id="run" class="go" disabled>Tạo báo cáo</button></p>
+<div id="warn"></div>
+<div id="result" aria-live="polite"></div>
+<footer>Bộ xử lý Python (Pyodide) chạy trực tiếp trong trình duyệt. Cần mạng để tải bộ xử lý lần đầu.</footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/pyodide@314.0.7/pyodide.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+let py=null,students=[],excused=[],rosterText='';
+const status=(t,err)=>{const s=$('status');s.textContent=t;s.className='status'+(err?' err':'');};
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const lines=id=>$(id).value.split('\n').map(s=>s.trim()).filter(Boolean);
+const norm=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase();
+
+async function boot(){
+  try{
+    py=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/npm/pyodide@314.0.7/'});
+    py.FS.mkdirTree('/app');py.FS.mkdirTree('/work');
+    for(const f of ['tao_bao_cao.py','cau_noi_web.py']){
+      const r=await fetch(f,{cache:'no-cache'});
+      if(!r.ok)throw new Error('Không tải được '+f+' (đã tải đủ file lên GitHub chưa?)');
+      py.FS.writeFile('/app/'+f,await r.text());
+    }
+    py.runPython("import sys\nsys.path.insert(0,'/app')\nimport cau_noi_web as W");
+    status('Sẵn sàng. Làm lần lượt từ bước 1.');refresh();
+  }catch(e){status('Không khởi động được: '+e.message+' — thử tải lại trang, hoặc kiểm tra kết nối mạng.',true);}
+}
+const callPy=(fn,arg)=>{py.globals.set('_a',arg);return JSON.parse(py.runPython(fn));};
+const key=()=>'bcdd:v1:'+($('cls').value.trim()||'mac-dinh');
+function save(){try{localStorage.setItem(key(),JSON.stringify({left:$('left').value,trial:$('trial').value,fixed:$('fixed').value,teach:$('teach').value,good:$('good').value,poor:$('poor').value}));}catch(e){}}
+function load(){let d={};try{d=JSON.parse(localStorage.getItem(key())||'{}');}catch(e){}
+  for(const k of ['left','trial','fixed','teach'])$(k).value=d[k]||'';$('good').value=d.good||10;$('poor').value=d.poor||4;}
+['left','trial','fixed','teach','good','poor'].forEach(i=>$(i).addEventListener('input',save));
+$('cls').addEventListener('input',()=>{load();});
+$('wipe').onclick=()=>{try{localStorage.removeItem(key());}catch(e){}load();status('Đã xoá cài đặt đã lưu của lớp này.');};
+
+function refresh(){$('run').disabled=!(py&&students.length&&$('chat').files.length&&$('part').files.length);}
+['chat','part'].forEach(i=>$(i).addEventListener('change',refresh));
+
+$('roster').addEventListener('change',async()=>{
+  const f=$('roster').files[0];students=[];excused=[];drawChips();$('find').disabled=true;
+  if(!f||!py){refresh();return;}
+  rosterText=await f.text();py.FS.writeFile('/work/roster.csv',rosterText);
+  const r=callPy("W.preview_roster('/work/roster.csv', _a)",$('cls').value.trim());
+  if(!r.ok){$('rosterInfo').textContent=r.error;refresh();return;}
+  students=r.students;$('find').disabled=false;
+  $('rosterInfo').textContent='Đã đọc '+students.length+' học sinh'+(r.codes.length?'. Mã nhóm trong “Ghi chú”: '+r.codes.join(', '):'')+'.';
+  refresh();
+});
+
+$('find').addEventListener('input',()=>{
+  const q=norm($('find').value.trim()),box=$('sugg');box.innerHTML='';
+  if(!q)return;
+  const hits=students.filter(s=>norm(s.label).includes(q)&&!excused.some(e=>e.send===s.send)).slice(0,8);
+  if(!hits.length){box.innerHTML='<div class="hint" style="margin:6px 2px">Không thấy tên này trong danh sách.</div>';return;}
+  const w=document.createElement('div');w.className='sugg';
+  hits.forEach(s=>{const b=document.createElement('button');b.type='button';b.textContent=s.label+(s.note?'  ('+s.note+')':'');
+    b.onclick=()=>{excused.push(s);$('find').value='';box.innerHTML='';drawChips();$('find').focus();};w.appendChild(b);});
+  box.appendChild(w);
+});
+function drawChips(){const c=$('chips');c.innerHTML='';
+  excused.forEach((s,i)=>{const d=document.createElement('span');d.className='chip';d.append(s.label);
+    const b=document.createElement('button');b.type='button';b.textContent='×';b.setAttribute('aria-label','Bỏ '+s.label);
+    b.onclick=()=>{excused.splice(i,1);drawChips();};d.append(b);c.appendChild(d);});}
+
+function md(t){
+  const out=[];let tbl=[];
+  const flush=()=>{if(!tbl.length)return;const rows=tbl.filter(r=>!/^\|[\s:|-]+\|?$/.test(r)).map(r=>r.replace(/^\||\|$/g,'').split('|').map(x=>x.trim()));
+    out.push('<table>'+rows.map((r,i)=>'<tr>'+r.map(x=>'<'+(i?'td':'th')+'>'+inl(x)+'</'+(i?'td':'th')+'>').join('')+'</tr>').join('')+'</table>');tbl=[];};
+  const inl=s=>esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  for(const l of t.split('\n')){
+    if(l.startsWith('|')){tbl.push(l);continue;}flush();
+    if(!l.trim())continue;
+    if(l.startsWith('- '))out.push('<p>• '+inl(l.slice(2))+'</p>');else out.push('<p>'+inl(l)+'</p>');
+  }flush();return out.join('');
+}
+async function copy(t,btn){try{await navigator.clipboard.writeText(t);}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();}
+  const o=btn.textContent;btn.textContent='Đã sao chép';setTimeout(()=>btn.textContent=o,1500);}
+
+$('run').onclick=async()=>{
+  const btn=$('run');btn.disabled=true;$('warn').innerHTML='';$('result').innerHTML='';status('Đang tạo báo cáo…');
+  try{
+    const wf=async(file,path)=>{py.FS.writeFile(path,await file.text());return path;};
+    const chat=[];let i=0;for(const f of $('chat').files)chat.push(await wf(f,'/work/chat'+(i++)+'.txt'));
+    const part=await wf($('part').files[0],'/work/part.csv');
+    const vtt=[];i=0;for(const f of $('vtt').files)vtt.push(await wf(f,'/work/v'+(i++)+'.vtt'));
+    const fixed={};lines('fixed').forEach(l=>{const k=l.lastIndexOf(':');if(k>0)fixed[l.slice(0,k).trim()]=l.slice(k+1).trim();});
+    let d='';if($('date').value){const [y,m,dd]=$('date').value.split('-');d=dd+'/'+m+'/'+y;}
+    const p={class_name:$('cls').value.trim()||'Lớp',roster_path:'/work/roster.csv',chat_paths:chat,participants_path:part,vtt_paths:vtt,
+      session_date:d,filter_code:$('code').value,good:+$('good').value,poor:+$('poor').value,
+      excused:excused.map(s=>s.send).concat(lines('paste')),manual_checkin:lines('manual'),teachers:lines('teach'),
+      fixed_notes:{da_nghi_han:lines('left'),hoc_thu:lines('trial'),always_absent_on_weekday:fixed}};
+    await new Promise(r=>setTimeout(r,30));
+    const r=callPy("W.run_report(_a)",JSON.stringify(p));
+    if(!r.ok){status('Không tạo được báo cáo: '+r.error+'. Kiểm tra lại các file đã chọn đúng loại chưa.',true);btn.disabled=false;return;}
+    show(r.report,r.warnings);status('Xong. Đọc phần cần kiểm tra (nếu có) rồi sao chép báo cáo.');
+  }catch(e){status('Có lỗi: '+e.message,true);}
+  btn.disabled=false;refresh();
+};
+function show(rep,extra){
+  const flags=extra.slice();
+  rep.split('\n').forEach(l=>{if(/❓|⚠️/.test(l))flags.push(l.replace(/^[-\s]+/,'').replace(/\*\*/g,''));});
+  if(flags.length)$('warn').innerHTML='<div class="warnbox"><b>Cần kiểm tra trước khi gửi ('+flags.length+')</b><ul>'+flags.map(f=>'<li>'+esc(f.length>420?f.slice(0,420)+'…':f)+'</li>').join('')+'</ul></div>';
+  const parts=rep.split(/^## /m),root=$('result');
+  const tools=document.createElement('div');tools.className='tools';
+  const all=document.createElement('button');all.textContent='Sao chép toàn bộ báo cáo';all.onclick=()=>copy(rep,all);tools.appendChild(all);
+  root.appendChild(tools);
+  parts.forEach((p,idx)=>{
+    let title,body;
+    if(idx===0){title=p.split('\n')[0].replace(/^#\s*/,'');body=p.split('\n').slice(1).join('\n');if(!body.trim())return;}
+    else{title=p.split('\n')[0];body=p.split('\n').slice(1).join('\n');}
+    const s=document.createElement('section');s.className='out';
+    const h=document.createElement('header');h.innerHTML='<h3>'+esc(title)+'</h3>';
+    const b=document.createElement('button');b.textContent='Sao chép';b.onclick=()=>copy(body.trim(),b);h.appendChild(b);
+    const c=document.createElement('div');c.className='body';c.innerHTML=md(body);s.append(h,c);root.appendChild(s);
+  });
+  root.scrollIntoView({behavior:'smooth',block:'start'});
+}
+load();boot();
+</script>
+</body>
+</html>
